@@ -80,7 +80,7 @@ go run src\main.go seed
 
 Ответ приходит в виде JSON со списком ID категорий под ключом "categories"
 
-`GET` /categories/?url=<https://playground.ru>
+`GET` /categories/?url=https://playground.ru
 
 ```json
 {
@@ -90,7 +90,7 @@ go run src\main.go seed
 }
 ```
 
-`GET` /categories/?url=<https://playground.ru&confident=false>
+`GET` /categories/?url=https://playground.ru&confident=false
 
 ```json
 {
@@ -101,6 +101,38 @@ go run src\main.go seed
     2832,
     1722
   ]
+}
+```
+
+#### Ошибки
+
+`GET` /categories/
+
+> Параметр URL не задан
+
+```json
+{
+  "error": "URL is required"
+}
+```
+
+`GET` /categories/?url=https:/asdf
+
+> URL некорректен
+
+```json
+{
+  "error": "Invalid URL"
+}
+```
+
+`GET` /categories/?url=https://kniga-online.com
+
+> По URL не проходят запросы
+
+```json
+{
+  "error": "URL is unreachable"
 }
 ```
 
