@@ -7,21 +7,26 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
+      POSTGRES_HOST: host.docker.internal
     ports:
       - ${DB_PORT}:${DB_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   server:
     build: .
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     environment:
-      DB_HOST: db
+      DB_HOST: host.docker.internal
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
       DB_PORT: ${DB_PORT}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     restart: always
-
-  
-

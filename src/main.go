@@ -13,11 +13,12 @@ func main() {
 	config.Init();
 	database.Init();
 	skydns.Init()
-	
+
 	args := os.Args[1:];
 	if len(args) > 0 && args[0] == "seed" {
 		database.Seed()
 	}
 
 	server.Run()
+
 }

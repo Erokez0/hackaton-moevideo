@@ -28,7 +28,7 @@
 
     **Готово!**
 
-### Без Docker
+### Без использования Docker
 
 1. Склонируйте репозиторий
 2. Заполните переменные окружения по примеру из `.env.example`
@@ -37,17 +37,26 @@
 
     ```shell
     go mod download
-    go build -o main /app/src
-    ./main.exe
+    go run .\src\main.go
     ```
 
      **Готово!**
+
+
+*Также, если требуется заменить категории, достаточно заменить содержимое файла categories.json не меняя его структуру*
 
 ## Инструкция пользования
 
 > [**Вернуть в начало**](#хакатон)
 
 Заполнение базы данных категориями в первый раз осуществляется запуском программы с аргументом seed.
+
+```shell
+go run src\main.go seed
+
+.\main.exe seed
+```
+
 
 ### Эндпоинты
 
@@ -69,9 +78,9 @@
 
 #### Формат ответа
 
-Ответ приходит в виде JSON со списком категорий под ключом "categories"
+Ответ приходит в виде JSON со списком ID категорий под ключом "categories"
 
-`GET` /categories/?url=https://playground.ru
+`GET` /categories/?url=<https://playground.ru>
 
 ```json
 {
@@ -81,7 +90,7 @@
 }
 ```
 
-`GET` /categories/?url=https://playground.ru&confident=false
+`GET` /categories/?url=<https://playground.ru&confident=false>
 
 ```json
 {
@@ -99,7 +108,9 @@
 
 > [**Вернуть в начало**](#хакатон)
 
-```tree
+### Файловая структура
+
+```text
 src/
 ├─ server/
 │  ├─ server.go - сервер Gin
@@ -109,6 +120,6 @@ src/
 │  ├─ database.go - модуль для работы с базой данных PostgreSQL, использующий gorm
 ├─ categorizes/
 │  ├─ skydns/
-├─ ├─ ├─ skydns.go - модуль для работы с API skydns для категоризации сайта
+│  │  ├─ skydns.go - модуль для работы с API skydns для категоризации сайта
 ├─ main.go - файл для запуска программы
 ```

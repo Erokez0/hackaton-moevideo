@@ -30,7 +30,9 @@ func Init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	DB.AutoMigrate(&Category{})
+	if err := DB.AutoMigrate(&Category{}); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func FindAll() []Category {
@@ -58,11 +60,13 @@ func FindIdsLikeName(name string, confident bool) []int {
 
 		}
 	}
+
 	for _, category := range categories {
 		if _, ok := ids[category.ID]; !ok {
 			ids[category.ID] = true
 		}
 	}
+
 	var result []int
 	for id := range ids {
 		result = append(result, id)

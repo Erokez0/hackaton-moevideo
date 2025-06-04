@@ -17,7 +17,7 @@ type dbConfig struct {
 
 type serverConfig struct {
 	Address string
-	Port string
+	Port    string
 }
 
 var DBConfig dbConfig

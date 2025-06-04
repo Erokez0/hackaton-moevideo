@@ -17,9 +17,8 @@ COPY src /app/src
 # Build the Go app
 RUN go build -o main /app/src
 
-ARG PORT
 # Expose port specified in .env file
-ENV PORT=${PORT}
+ENV DB_HOST=host.docker.internal
 EXPOSE ${SERVER_PORT}
 
 # Command to run the executable
