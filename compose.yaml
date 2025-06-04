@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+  server:
+    build: .
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+    depends_on:
+      - db
+    restart: always
+
+  
+
